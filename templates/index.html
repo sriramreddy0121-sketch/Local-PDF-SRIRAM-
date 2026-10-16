@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Turn text-based PDFs into clear, student-friendly notes using AI that runs locally.">
+  <title>Local PDF Simplifier</title>
+  <link rel="stylesheet" href="{{ url_for('static', path='/style.css') }}">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="Local PDF Simplifier home">
+      <span class="brand-mark" aria-hidden="true">PDF</span>
+      <span><strong>Local PDF Simplifier</strong><small>Understand more. Learn smarter.</small></span>
+    </a>
+    <span class="local-badge"><span class="status-dot"></span> Local AI · Gemma 3:1B</span>
+  </header>
+
+  <section class="hero">
+    <div class="hero-copy">
+      <p class="eyebrow">A calmer way to study</p>
+      <h1>Make difficult PDFs<br><span>make sense.</span></h1>
+      <p class="hero-description">Turn dense documents into clear notes, a short summary, key points, and simple word explanations. Your document stays on your computer.</p>
+      <ul class="trust-list">
+        <li>Runs on your computer</li>
+        <li>No external AI uploads</li>
+        <li>Made for text-based PDFs</li>
+      </ul>
+    </div>
+
+    <section class="upload-card" aria-labelledby="upload-title">
+      <div class="card-heading">
+        <span class="heading-icon" aria-hidden="true">↑</span>
+        <div><p class="eyebrow">Start here</p><h2 id="upload-title">Upload a document</h2></div>
+      </div>
+      <p class="muted">Choose a PDF from your computer to create study notes.</p>
+      <form action="/simplify" method="post" enctype="multipart/form-data">
+        <label class="file-picker" for="pdf-file">
+          <span class="file-icon" aria-hidden="true">PDF</span>
+          <span><strong>Select a PDF file</strong><small>PDF format · Maximum 10 MB</small></span>
+        </label>
+        <input id="pdf-file" class="file-input" type="file" name="file" accept=".pdf,application/pdf" required>
+        <p class="file-help">Up to 50 pages. Scanned image-only PDFs are not supported.</p>
+        <button class="button button-primary" type="submit">Simplify my PDF <span aria-hidden="true">→</span></button>
+      </form>
+      {% if error %}
+        <div class="message message-error" role="alert"><strong>We could not process that PDF.</strong><p>{{ error }}</p><p>Check that Ollama is running and Gemma is installed. In a terminal, run <code>ollama run gemma3:1b</code>.</p></div>
+      {% endif %}
+      <div class="ollama-tip"><strong>Before you begin</strong><p>Ollama must be running, with the Gemma model downloaded.</p><code>ollama pull gemma3:1b</code></div>
+    </section>
+  </section>
+
+  <main class="content-wrap">
+    <section class="how-section" aria-labelledby="how-title">
+      <div class="section-intro"><p class="eyebrow">Simple from start to finish</p><h2 id="how-title">Your document, made clearer</h2></div>
+      <div class="steps-grid">
+        <article class="step"><span>01</span><h3>Choose a PDF</h3><p>Select a text-based document, up to 10 MB.</p></article>
+        <article class="step"><span>02</span><h3>Read its text</h3><p>PyMuPDF reads the words on your computer.</p></article>
+        <article class="step"><span>03</span><h3>Simplify locally</h3><p>Ollama and Gemma help explain the content.</p></article>
+        <article class="step"><span>04</span><h3>Study your notes</h3><p>Review the results and download a text copy.</p></article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><strong>Local PDF Simplifier</strong><span>Study help that keeps your document on your computer.</span></footer>
+</body>
+</html>

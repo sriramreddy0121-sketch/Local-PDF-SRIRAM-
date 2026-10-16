@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Review your simplified PDF notes, summary, key points, and word explanations.">
+  <title>Your Study Notes · Local PDF Simplifier</title>
+  <link rel="stylesheet" href="{{ url_for('static', path='/style.css') }}">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="Local PDF Simplifier home">
+      <span class="brand-mark" aria-hidden="true">PDF</span>
+      <span><strong>Local PDF Simplifier</strong><small>Your AI study space</small></span>
+    </a>
+    <a class="button button-secondary" href="/">← New PDF</a>
+  </header>
+
+  <section class="results-hero">
+    <p class="eyebrow">Your results are ready</p>
+    <h1>Learn it <span>simply.</span></h1>
+    <p>Review the notes, compare them with the source, or download a copy.</p>
+  </section>
+
+  <main class="results-wrap">
+    <nav class="contents-nav" aria-label="Results sections">
+      <a href="#simplified">Simplified notes</a>
+      <a href="#summary">Summary</a>
+      <a href="#key-points">Key points</a>
+      <a href="#difficult-words">Difficult words</a>
+      <a href="#original">Original text</a>
+    </nav>
+
+    <section class="result-section" id="simplified">
+      <p class="eyebrow">01 · Make sense of it</p><h2>Simplified notes</h2>
+      <pre>{{ result.simple }}</pre>
+    </section>
+    <section class="result-section" id="summary">
+      <p class="eyebrow">02 · The big picture</p><h2>Short summary</h2>
+      <pre>{{ result.summary }}</pre>
+    </section>
+    <section class="result-section" id="key-points">
+      <p class="eyebrow">03 · Remember these</p><h2>Important key points</h2>
+      <pre>{{ result.points }}</pre>
+    </section>
+    <section class="result-section" id="difficult-words">
+      <p class="eyebrow">04 · Build your vocabulary</p><h2>Difficult words</h2>
+      <pre>{{ result.words }}</pre>
+    </section>
+    <section class="result-section original-section" id="original">
+      <p class="eyebrow">05 · Check the source</p><h2>Original PDF text</h2>
+      <pre>{{ result.original }}</pre>
+    </section>
+
+    <div class="download-area">
+      <form action="/download" method="post">
+        <textarea name="simple" hidden>{{ result.simple }}</textarea>
+        <textarea name="summary" hidden>{{ result.summary }}</textarea>
+        <textarea name="points" hidden>{{ result.points }}</textarea>
+        <textarea name="words" hidden>{{ result.words }}</textarea>
+        <button class="button button-primary" type="submit">↓ Download study notes (.txt)</button>
+      </form>
+      <a class="text-link" href="/">Simplify another PDF</a>
+    </div>
+    <p class="disclaimer">AI-generated notes can make mistakes. Check important information against the original PDF.</p>
+  </main>
+
+  <footer class="site-footer"><strong>Local PDF Simplifier</strong><span>Your files are processed locally using Ollama.</span></footer>
+</body>
+</html>

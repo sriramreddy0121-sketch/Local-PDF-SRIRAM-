@@ -1,0 +1,13 @@
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.env
+.env.*
+!.env.example
+*.pdf
+*.txt
+!.gitignore
+.pytest_cache/
+.idea/
+.vscode/
